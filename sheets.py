@@ -106,3 +106,70 @@ class SheetsClient:
 
         except HttpError as e:
             raise Exception(f"Failed to read one-time purchases: {e}")
+
+    def append_log(self, invoice_name: str, datetime_nzt: str, description: str,
+                   is_recurring: bool, sheet_appended: str) -> dict:
+        """Append a processing log entry to the Logs tab"""
+        try:
+            values = [[
+                invoice_name,
+                datetime_nzt,
+                description,
+                "Yes" if is_recurring else "No",
+                sheet_appended
+            ]]
+            body = {'values': values}
+
+            result = self.service.spreadsheets().values().append(
+                spreadsheetId=config.SPREADSHEET_ID,
+                range=f'{config.LOGS_TAB}!A:E',
+                valueInputOption='USER_ENTERED',
+                insertDataOption='INSERT_ROWS',
+                body=body
+            ).execute()
+
+            return result
+
+        except HttpError as e:
+            raise Exception(f"Failed to append log: {e}")
+
+    def ensure_logs_sheet_exists(self):
+        """Create the Logs sheet if it doesn't exist, with headers"""
+        try:
+            # Get existing sheets
+            spreadsheet = self.service.spreadsheets().get(
+                spreadsheetId=config.SPREADSHEET_ID
+            ).execute()
+
+            existing_sheets = [s['properties']['title'] for s in spreadsheet['sheets']]
+
+            if config.LOGS_TAB not in existing_sheets:
+                # Create the sheet
+                request = {
+                    'requests': [{
+                        'addSheet': {
+                            'properties': {
+                                'title': config.LOGS_TAB
+                            }
+                        }
+                    }]
+                }
+                self.service.spreadsheets().batchUpdate(
+                    spreadsheetId=config.SPREADSHEET_ID,
+                    body=request
+                ).execute()
+
+                # Add headers
+                headers = [['Invoice Name', 'Date/Time (NZT)', 'Description', 'Recurring?', 'Sheet Appended']]
+                self.service.spreadsheets().values().update(
+                    spreadsheetId=config.SPREADSHEET_ID,
+                    range=f'{config.LOGS_TAB}!A1:E1',
+                    valueInputOption='USER_ENTERED',
+                    body={'values': headers}
+                ).execute()
+
+                return True
+            return False
+
+        except HttpError as e:
+            raise Exception(f"Failed to ensure logs sheet: {e}")

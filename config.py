@@ -21,6 +21,10 @@ class Config:
     # Sheet tab names
     SUBSCRIPTIONS_TAB = 'Subscriptions'
     ONE_TIME_TAB = 'One-Time Purchases'
+    LOGS_TAB = 'Logs'
+
+    # Local log file
+    LOCAL_LOG_PATH = './expense_processing_log.json'
 
     # Valid categories
     SUBSCRIPTION_CATEGORIES = [

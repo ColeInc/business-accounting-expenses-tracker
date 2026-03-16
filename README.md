@@ -4,11 +4,11 @@ A natural language expense tracker that logs business expenses to Google Sheets 
 
 ## Features
 
-- 📝 Natural language input - just describe your expense
-- 🔄 Handles recurring subscriptions and one-time purchases
-- 📊 Automatically categorizes and validates expenses
-- ☁️ Syncs directly to Google Sheets
-- 🚀 No API key required - uses Claude Code's built-in Claude access
+- Natural language input - just describe your expense
+- Handles recurring subscriptions and one-time purchases
+- Automatically categorizes and validates expenses
+- Syncs directly to Google Sheets
+- No API key required - uses Claude Code's built-in Claude access
 
 ## Setup
 
