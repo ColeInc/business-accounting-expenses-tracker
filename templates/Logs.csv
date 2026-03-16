@@ -1,0 +1,4 @@
+Invoice Name,Date/Time (NZT),Description,Recurring?,Sheet Appended
+invoice_slack_2024.pdf,2024-03-15 14:23:45 NZT,Slack - Business+ (Annual) - $80/mo,Yes,Subscriptions
+receipt_mouse.pdf,2024-02-15 09:15:22 NZT,Ergonomic Mouse from Logitech - $89.99,No,One-Time Purchases
+invoice_notion_jan.pdf,2024-01-15 16:42:11 NZT,Notion - Plus (Monthly) - $10/mo,Yes,Subscriptions

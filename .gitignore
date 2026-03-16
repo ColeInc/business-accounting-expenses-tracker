@@ -63,3 +63,5 @@ Thumbs.db
 .coverage
 htmlcov/
 .tox/
+
+expense_processing_log.json
