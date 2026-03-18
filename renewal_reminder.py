@@ -64,7 +64,7 @@ def main():
     renewals = sheets.get_upcoming_renewals(7)
     print(f"Found {len(renewals)} upcoming renewal(s)")
     if renewals:
-        subject = f"Subscription Reminder: {len(renewals)} renewal(s) this week"
+        subject = f"SBB Business Expenses Subscription Reminder: {len(renewals)} renewal(s) this week"
     else:
         subject = "Subscription Reminder: No renewals this week"
     GmailClient(creds).send_email(
