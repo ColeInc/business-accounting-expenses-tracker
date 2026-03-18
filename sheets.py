@@ -94,6 +94,33 @@ class SheetsClient:
         except HttpError as e:
             raise Exception(f"Failed to read subscriptions: {e}")
 
+    def get_upcoming_renewals(self, days_threshold: int = 7) -> list:
+        """Return subscriptions renewing within days_threshold days"""
+        rows = self.get_subscriptions()
+        if not rows or len(rows) < 2:
+            return []
+        upcoming = []
+        for row in rows[1:]:  # skip header
+            if len(row) < 9:
+                continue
+            days_val = row[8]  # Column I
+            try:
+                if not days_val or str(days_val).startswith('#'):
+                    continue
+                days = int(float(str(days_val)))
+                if 0 <= days <= days_threshold:
+                    upcoming.append({
+                        'vendor': row[0],
+                        'plan_tier': row[2] if len(row) > 2 else '',
+                        'billing_cycle': row[3] if len(row) > 3 else '',
+                        'monthly_cost': row[4] if len(row) > 4 else '',
+                        'next_renewal': row[7] if len(row) > 7 else '',
+                        'days_until': days,
+                    })
+            except (ValueError, TypeError):
+                continue
+        return sorted(upcoming, key=lambda x: x['days_until'])
+
     def get_one_time_purchases(self) -> List[List]:
         """Read all one-time purchases from the sheet"""
         try:

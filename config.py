@@ -11,7 +11,11 @@ class Config:
     SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID', '')
     CREDENTIALS_PATH = os.getenv('GOOGLE_CREDENTIALS_PATH', './client_secret.json')
     TOKEN_PATH = './token.json'
-    SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+    SCOPES = [
+        'https://www.googleapis.com/auth/spreadsheets',
+        'https://www.googleapis.com/auth/gmail.send',
+    ]
+    REMINDER_EMAIL = os.getenv('REMINDER_EMAIL', 'colehmcconnell@gmail.com')
 
 
     # Defaults

@@ -1,0 +1,29 @@
+name: Subscription Renewal Reminder
+
+on:
+  schedule:
+    - cron: '0 20 * * *'   # 8 AM NZST (UTC+12)
+  workflow_dispatch:
+
+jobs:
+  send-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Write credentials
+        env:
+          TOKEN_JSON: ${{ secrets.GOOGLE_TOKEN_JSON }}
+          CLIENT_SECRET_JSON: ${{ secrets.GOOGLE_CLIENT_SECRET_JSON }}
+        run: |
+          echo "$TOKEN_JSON" > token.json
+          echo "$CLIENT_SECRET_JSON" > client_secret.json
+      - name: Write .env
+        run: |
+          echo "GOOGLE_SPREADSHEET_ID=${{ secrets.GOOGLE_SPREADSHEET_ID }}" > .env
+          echo "GOOGLE_CREDENTIALS_PATH=./client_secret.json" >> .env
+          echo "REMINDER_EMAIL=${{ secrets.REMINDER_EMAIL }}" >> .env
+      - run: python renewal_reminder.py
