@@ -29,21 +29,21 @@ def validate_billing_cycle(cycle: str) -> str:
 
 
 def validate_date(date_str: str) -> str:
-    """Validate and format date as MM/DD/YYYY"""
+    """Validate and format date as DD/MM/YYYY (NZ locale, matches sheet format)"""
     if not date_str:
         return ''
 
     # Try to parse various date formats
     formats = [
+        '%d/%m/%Y', '%d-%m-%Y',
         '%m/%d/%Y', '%m-%d-%Y', '%Y-%m-%d',
-        '%d/%m/%Y', '%d-%m-%Y', '%B %d, %Y',
-        '%b %d, %Y', '%Y/%m/%d'
+        '%B %d, %Y', '%b %d, %Y', '%Y/%m/%d'
     ]
 
     for fmt in formats:
         try:
             dt = datetime.strptime(date_str, fmt)
-            return dt.strftime('%m/%d/%Y')
+            return dt.strftime('%d/%m/%Y')
         except ValueError:
             continue
 
@@ -109,6 +109,9 @@ def validate_subscription(data: Dict[str, Any]) -> Dict[str, Any]:
 
     if not validated.get('account_email'):
         validated['account_email'] = config.DEFAULT_ACCOUNT_EMAIL
+
+    if not validated.get('currency'):
+        validated['currency'] = 'USD'
 
     return validated
 

@@ -2,7 +2,7 @@ name: Subscription Renewal Reminder
 
 on:
   schedule:
-    - cron: '0 20 * * *'   # 8 AM NZST (UTC+12)
+    - cron: '0 19 * * 0'   # ~7 AM Monday NZT (7 PM Sunday UTC)
   workflow_dispatch:
 
 jobs:
