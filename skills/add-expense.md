@@ -145,17 +145,17 @@ After parsing the expense(s) into JSON:
 
 1. **Single expense:** Use echo to pipe JSON to the Python script:
    ```bash
-   echo '<json-here>' | /Users/cole/Cole/PROJECTS/claude/business-accounting-expense-tracker/venv/bin/python /Users/cole/Cole/PROJECTS/claude/business-accounting-expense-tracker/ingest.py --stdin
+   echo '<json-here>' | /Users/cole/Cole/PROJECTS/cole-os/02_tools/business-accounting-expense-tracker/venv/bin/python /Users/cole/Cole/PROJECTS/cole-os/02_tools/business-accounting-expense-tracker/ingest.py --stdin
    ```
 
 2. **Multiple expenses:** Same format, but with JSON array:
    ```bash
-   echo '[{...}, {...}]' | /Users/cole/Cole/PROJECTS/claude/business-accounting-expense-tracker/venv/bin/python /Users/cole/Cole/PROJECTS/claude/business-accounting-expense-tracker/ingest.py --stdin
+   echo '[{...}, {...}]' | /Users/cole/Cole/PROJECTS/cole-os/02_tools/business-accounting-expense-tracker/venv/bin/python /Users/cole/Cole/PROJECTS/cole-os/02_tools/business-accounting-expense-tracker/ingest.py --stdin
    ```
 
 3. **File input with invoice name tracking:** When processing a PDF/image, pass the filename for logging:
    ```bash
-   echo '<json-here>' | /Users/cole/Cole/PROJECTS/claude/business-accounting-expense-tracker/venv/bin/python /Users/cole/Cole/PROJECTS/claude/business-accounting-expense-tracker/ingest.py --stdin --invoice-name "invoice.pdf"
+   echo '<json-here>' | /Users/cole/Cole/PROJECTS/cole-os/02_tools/business-accounting-expense-tracker/venv/bin/python /Users/cole/Cole/PROJECTS/cole-os/02_tools/business-accounting-expense-tracker/ingest.py --stdin --invoice-name "invoice.pdf"
    ```
    This logs the source file to both a local JSON file and the Google Sheets "Logs" tab.
 

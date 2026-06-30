@@ -7,6 +7,9 @@ load_dotenv()
 class Config:
     """Application configuration"""
 
+    # Claude API
+    ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')
+
     # Google Sheets
     SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID', '')
     CREDENTIALS_PATH = os.getenv('GOOGLE_CREDENTIALS_PATH', './client_secret.json')
