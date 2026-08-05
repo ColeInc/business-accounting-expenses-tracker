@@ -65,3 +65,4 @@ htmlcov/
 .tox/
 
 expense_processing_log.json
+expense-tracker-agent/service_registry.json
